@@ -16,6 +16,12 @@
 	.input{
 		width: 500px;
 	}
+	.search{
+		width: 500px;
+	}
+	.sel{
+		width: 300px;
+	}
 </style>
 </head>
 <body>

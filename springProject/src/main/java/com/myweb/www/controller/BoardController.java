@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.BoardVO;
+import com.myweb.www.domain.PagingVO;
+import com.myweb.www.handler.PagingHandler;
 import com.myweb.www.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,10 +42,17 @@ public class BoardController {
 		return "index";
 	}
 	
+	// paging 추가
 	@GetMapping("/list")
-	public String list(Model model) {
-		List<BoardVO> list = bsv.getList();
+	public String list(Model model, PagingVO pgvo) {
+//		log.info("pgvo : {} ",pgvo);
+		List<BoardVO> list = bsv.getList(pgvo);
 		model.addAttribute("list",list);
+		// 페이징 처리
+		// 총 페이지 개수 totalCount
+		int totalCount = bsv.getTotalCount(pgvo);
+		PagingHandler ph = new PagingHandler(pgvo, totalCount);
+		model.addAttribute("ph", ph);
 		return "/board/list";
 	}
 	
@@ -60,11 +70,12 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO bvo) {
+	public String modify(BoardVO bvo, RedirectAttributes re) {
 		log.info("bvo : {}",bvo);
 		int isOk = bsv.modify(bvo);
-		log.info(">>> board modify "+(isOk > 0? "OK" : "Fail"));
-		return "redirect:/board/detail?bno="+bvo.getBno();
+		re.addAttribute("bno", bvo.getBno());
+		re.addFlashAttribute("isOk", isOk);
+		return "redirect:/board/detail";
 	}
 	
 	@GetMapping("/remove")
