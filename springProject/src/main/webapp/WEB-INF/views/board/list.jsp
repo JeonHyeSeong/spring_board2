@@ -46,7 +46,6 @@
 		</form>
 	</div>
 	
-	
 	<div class="container-fluid con">
 	<table class="table table-dark table-striped ta">
 		<thead>
@@ -81,21 +80,17 @@
 	<!-- 페이징 라인 -->
 	<nav aria-label="Page navigation example" class="nav">
 		<ul class="pagination">
-		    
 			<li class="page-item ${(ph.prev eq false) ? 'disabled' : '' }">
 				<a class="page-link" href="/board/list?pageNo=${ph.startPage-1}&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}">Previous</a>
 			</li>
-			
 			<c:forEach begin="${ph.startPage }" end="${ph.endPage }" var="i">
 				   <li class="page-item">
 					    <a class="page-link" href="/board/list?pageNo=${i }&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}">${i }</a>
 				   </li>
 			</c:forEach>
-		    
 			<li class="page-item ${(ph.next eq false) ? 'disabled' : '' }">
 				<a class="page-link" href="/board/list?pageNo=${ph.endPage+1}&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}">Next</a>
 			</li>
-			
   		</ul>
 	</nav>
 	
