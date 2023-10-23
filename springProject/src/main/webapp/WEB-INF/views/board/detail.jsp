@@ -80,6 +80,14 @@
 		</li>
 	</ul>
 	
+	<!-- 댓글 페이징 라인 -->
+	<div>
+		<div>
+			<button type="button" id="moreBtn" data-page="1" 
+			class="btn btn-outline-secondary" style="visibility: hidden;">MORE+</button>
+		</div>
+	</div>
+	
 	<!-- 모달창 라인 -->
 	<div class="modal" id="myModal" tabindex="-1">
 	  <div class="modal-dialog">
