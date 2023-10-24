@@ -23,6 +23,10 @@ public interface BoardDAO {
 
 	void commentCount();
 
+	long selectOneBno();
+
+	void FileCount();
+
 
 
 }

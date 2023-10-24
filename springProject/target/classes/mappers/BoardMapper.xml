@@ -8,6 +8,10 @@
 		values(#{title},#{writer},#{content})
 	</insert>
 	
+	<select id="selectOneBno" resultType="long">
+		select max(bno) from board
+	</select>
+	
 	<select id="getList" resultType="com.myweb.www.domain.BoardVO">
 		select * from board 
 		<include refid="search"></include>
@@ -17,6 +21,10 @@
 	
 	<update id="commentCount">
 		update board set cmt_qty = (select count(cno) from comment where bno = board.bno)
+	</update>
+	
+	<update id="FileCount">
+		update board set has_file = (select count(uuid) from file where bno = board.bno)
 	</update>
 	
 	<select id="getDetail" resultType="com.myweb.www.domain.BoardVO">
