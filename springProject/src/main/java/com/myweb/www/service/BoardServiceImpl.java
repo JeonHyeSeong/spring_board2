@@ -98,6 +98,31 @@ public class BoardServiceImpl implements BoardService{
 		return isUp;
 	}
 
+	@Override
+	public int removeFile(String uuid) {
+		
+		return fdao.removeFile(uuid);
+	}
+
+	@Override
+	public int modifyFile(BoardDTO bdto) {
+		int isOk = bdao.update(bdto.getBvo());
+		
+		if(bdto.getFlist() == null) {
+			return isOk;
+		}
+		
+		if(isOk > 0 && bdto.getFlist().size() > 0) {
+			long bno = bdao.selectOneBno();
+			for(FileVO fvo : bdto.getFlist()) {
+				fvo.setBno(bno);
+				isOk *= fdao.insertFile(fvo);
+			}
+		}
+		
+		return isOk;
+	}
+
 
 	
 }

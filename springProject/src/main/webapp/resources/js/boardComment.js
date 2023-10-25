@@ -71,8 +71,8 @@ function CommentList(bno, page = 1) {
                     li += `<div class="fw-bold">${cvo.writer}</div>`;
                     li += `${cvo.content}</div>`;
                     li += `<span class="badge rounded-pill text-bg-info">${cvo.modAt}</span><br>`;
-                    li += `<button type="button" class="btn btn-warning modBtn" data-bs-toggle="modal" data-bs-target="#myModal">Mod</button>`;
-                    li += `<button type="button" class="btn btn-danger delBtn">Del</button>`;
+                    li += `<button type="button" class="btn btn-outline-warning modBtn" data-bs-toggle="modal" data-bs-target="#myModal">Mod</button>`;
+                    li += `<button type="button" class="btn btn-outline-danger delBtn">Del</button>`;
                     li += `</li>`;
                     ul.innerHTML += li;
                }

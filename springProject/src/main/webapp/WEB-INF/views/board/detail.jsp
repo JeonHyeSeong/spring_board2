@@ -60,41 +60,29 @@
 	<!-- 파일 표시 -->
 	<c:set value="${BoardDTO.flist }" var="flist"></c:set>
 	<div>
-		<ul>
-			<!-- 파일 개수만큼 li를 추가하여 파일을 표시 타입이 1일 경우만 표시 -->
-			<!-- li
-				div => img 그림표시
-				div => div 파일이름, 작성일자 span 크기 설정 -->
-			<!-- 하나의 파일만 따와서 fvo로 저장 -->
+		<ul class="list-group list-group-flush">
 			<c:forEach items="${flist }" var="fvo">
-				<li>
+				<li class="list-group-item">
 					<c:choose>
 						<c:when test="${fvo.fileType > 0 }">
 							<div>
-								<!-- /upload/year/month/day/uuid_file_name -->
-								<img alt="그림없음." src="/upload/${fn:replace(fvo.saveDir,'\\','/') }/
+								<img alt="그림없음." src="/upload/${fn:replace(fvo.saveDir,'\\','/')}/
 								${fvo.uuid}_th_${fvo.fileName}">
 							</div>
 						</c:when>
-						<c:otherwise>
-							<div>
-								<!-- file 아이콘 같은 모양 값으로 넣을 수 있음. -->
-							</div>
-						</c:otherwise>
 					</c:choose>
 					<div>
-						<div>${fvo.fileName }</div>
-						${fvo.regAt }
+						<div class="fw-bold">${fvo.fileName }</div>
+						<span class="badge rounded-pill text-bg-info">${fvo.regAt }</span>
 					</div>
-					<span>${fvo.fileSize }Byte</span>
 				</li>
 			</c:forEach>
 		</ul>
 	</div>
 	
 	
-	<a href="/board/modify?bno=${bvo.bno }"><button type="button" class="btn btn-info">수정</button></a>
-	<a href="/board/remove?bno=${bvo.bno }"><button type="button" class="btn btn-danger">삭제</button></a>
+	<a href="/board/modify?bno=${bvo.bno }"><button type="button" class="btn btn-outline-info">수정</button></a>
+	<a href="/board/remove?bno=${bvo.bno }"><button type="button" class="btn btn-outline-danger">삭제</button></a>
 	
 	<!-- 댓글 라인 -->
 	<div class="cmtContainer">
