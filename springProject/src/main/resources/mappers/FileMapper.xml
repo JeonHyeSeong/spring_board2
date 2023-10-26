@@ -16,8 +16,16 @@
 		select * from file where bno = #{bno} order by reg_at desc
 	</select>
 	
+	<select id="selectListAllFiles" resultType="com.myweb.www.domain.FileVO">
+		select * from file
+	</select>
+	
 	<delete id="removeFile">
 		delete from file where uuid = #{uuid}
+	</delete>
+	
+	<delete id="removeAllFile">
+		delete from file where bno = #{bno}
 	</delete>
 	
 </mapper>

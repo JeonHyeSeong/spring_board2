@@ -2,7 +2,9 @@ document.addEventListener('click', (e) => {
      if (e.target.classList.contains('fileDel')) {
           let uuid = e.target.dataset.uuid;
           removeFile(uuid).then(result => {
-               if (result == 1) {
+               console.log(result);
+               alert('파일삭제' + (parseInt(result) > 0 ? '완료' : '실패'));
+               if (parseInt(result)) {
                     e.target.closest('li').remove();
                     location.reload();
                }

@@ -3,12 +3,14 @@ package com.myweb.www.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myweb.www.domain.BoardDTO;
 import com.myweb.www.domain.BoardVO;
 import com.myweb.www.domain.FileVO;
 import com.myweb.www.domain.PagingVO;
 import com.myweb.www.repository.BoardDAO;
+import com.myweb.www.repository.CommentDAO;
 import com.myweb.www.repository.FileDAO;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ public class BoardServiceImpl implements BoardService{
 
 	private final BoardDAO bdao;
 	
+	private final CommentDAO cdao;
+	
 	private final FileDAO fdao;
 
 //	@Override
@@ -26,7 +30,7 @@ public class BoardServiceImpl implements BoardService{
 //		log.info("insert check");
 //		return bdao.insert(bvo);
 //	}
-
+	@Transactional
 	@Override
 	public List<BoardVO> getList(PagingVO pgvo) {
 		bdao.commentCount();
@@ -38,11 +42,13 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO getDetail(long bno) {
 		return bdao.getDetail(bno);
 	}
+	@Transactional
 	@Override
 	public BoardVO cntdetail(long bno) {
 		bdao.readcount(bno);
 		return bdao.cntdetail(bno);
 	}
+	@Transactional
 	@Override
 	public BoardDTO getDetailFile(long bno) {
 		BoardDTO bdto = new BoardDTO();
@@ -50,7 +56,7 @@ public class BoardServiceImpl implements BoardService{
 		bdto.setFlist(fdao.DetailFile(bno));
 		return bdto;
 	}
-	
+	@Transactional
 	@Override
 	public BoardDTO cntDetailFile(long bno) {
 		bdao.readcount(bno);
@@ -65,9 +71,11 @@ public class BoardServiceImpl implements BoardService{
 		return bdao.update(bvo);
 	}
 
+	@Transactional
 	@Override
 	public int remove(long bno) {
-		
+		cdao.removeAllCmt(bno);
+		fdao.removeAllFile(bno);
 		return bdao.remove(bno);
 	}
 
@@ -77,6 +85,7 @@ public class BoardServiceImpl implements BoardService{
 		return bdao.getTotalCount(pgvo);
 	}
 
+	@Transactional
 	@Override
 	public int insert(BoardDTO bdto) {
 		// bvo, flist 가져와서 각자 db에 저장
@@ -104,6 +113,7 @@ public class BoardServiceImpl implements BoardService{
 		return fdao.removeFile(uuid);
 	}
 
+	@Transactional
 	@Override
 	public int modifyFile(BoardDTO bdto) {
 		int isOk = bdao.update(bdto.getBvo());
@@ -122,6 +132,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		return isOk;
 	}
+
 
 
 	
