@@ -31,10 +31,23 @@
 				<label for="p" class="form-label fw-bold">password</label>
 				<input type="password" class="form-control input" name="pwd" id="p" placeholder="password">
 			</div>
+			<c:if test="${not empty param.errorMsg }">
+				<div class="text-danger mb-3">
+					<c:choose>
+						<c:when test="${param.errorMsg eq 'Bad credentials' }">
+							<c:set var="errText" value="이메일 & 비밀번호가 일치하지 않습니다." />
+						</c:when>
+						<c:otherwise>
+							<c:set var="errText" value="관리자에게 문의해주세요." />
+						</c:otherwise>
+					</c:choose>
+					${errText }
+				</div>
+			</c:if>
+			
 			<button type="submit" class="btn btn-outline-primary">Login</button>
 		</form>
 	</div>
-
 
 
 	<jsp:include page="../common/footer.jsp" />
