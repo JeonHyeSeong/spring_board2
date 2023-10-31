@@ -1,5 +1,7 @@
 package com.myweb.www.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,5 +29,36 @@ public class MemberServiceImpl implements MemberService{
 	public boolean updateLastLogin(String authEmail) {
 		
 		return mdao.updateLastLogin(authEmail) > 0? true : false;
+	}
+
+	@Override
+	public List<MemberVO> getList() {
+		// TODO Auto-generated method stub
+		return mdao.getList();
+	}
+
+	@Override
+	public MemberVO getDetail(String email) {
+		// TODO Auto-generated method stub
+		return mdao.getDetail(email);
+	}
+
+	@Override
+	public int memberUpdate(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return mdao.updateMember(mvo);
+	}
+
+	@Override
+	public int memberUp(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return mdao.upMember(mvo);
+	}
+
+	@Transactional
+	@Override
+	public int remove(String email) {
+		mdao.authRemove(email);
+		return mdao.remove(email);
 	}
 }

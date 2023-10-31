@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		// 승인 요청
 		http.authorizeRequests()
 		.antMatchers("/member/list").hasRole("ADMIN")
-		.antMatchers("/","/board/list","/board/cntdetail","/board/detail","/upload/**","/comment/**","/resources/**","/member/register","/member/login").permitAll()
+		.antMatchers("/","/board/list","/board/cntdetail","/board/detail","/upload/**","/comment/list","/resources/**","/member/register","/member/login").permitAll()
 		.anyRequest().authenticated(); // => 인증된 사용자만 처리
 		
 		// 커스텀 로그인 페이지를 구성
